@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mdpe_approve_app/Utils/common_widgets/Routes/AppNavigator.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/res/AppNavigator.dart';
 import 'package:mdpe_approve_app/features/Login/presentation/login_view.dart';
 import 'package:mdpe_approve_app/features/home/presentation/home_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';

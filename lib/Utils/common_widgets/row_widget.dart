@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'WidgetStyles/common_style.dart';
+import 'res/app_style.dart';
 
 class RowWidget extends StatelessWidget {
   final String title;

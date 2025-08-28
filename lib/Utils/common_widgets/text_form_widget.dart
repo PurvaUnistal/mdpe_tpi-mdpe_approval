@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'WidgetStyles/common_style.dart';
+import 'res/app_style.dart';
 import 'res/app_color.dart';
 import 'res/app_styles.dart';
 

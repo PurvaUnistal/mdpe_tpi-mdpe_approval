@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/Loader/DottedLoader.dart';
-import 'package:mdpe_approve_app/Utils/common_widgets/WidgetStyles/common_style.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/res/app_style.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/background_widget.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/button_widget.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/icon_button.dart';

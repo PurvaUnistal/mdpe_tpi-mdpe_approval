@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mdpe_approve_app/Utils/common_widgets/WidgetStyles/common_style.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/res/app_style.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_color.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_styles.dart';
 

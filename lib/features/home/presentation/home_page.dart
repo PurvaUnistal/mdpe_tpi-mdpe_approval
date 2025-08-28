@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/Loader/SpinLoader.dart';
-import 'package:mdpe_approve_app/Utils/common_widgets/Routes/AppNavigator.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/res/AppNavigator.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_bar_widget.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_color.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_config.dart';

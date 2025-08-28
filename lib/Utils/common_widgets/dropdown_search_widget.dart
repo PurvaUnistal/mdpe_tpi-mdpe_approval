@@ -1,6 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'WidgetStyles/common_style.dart';
+import 'res/app_style.dart';
 import 'button_widget.dart';
 import 'res/app_color.dart';
 import 'res/app_styles.dart';

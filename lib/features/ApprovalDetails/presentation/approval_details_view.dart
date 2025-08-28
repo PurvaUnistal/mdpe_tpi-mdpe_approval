@@ -36,7 +36,7 @@ class _ApprovalDetailsViewState extends State<ApprovalDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBarWidget(title: AppString.pmcApproval, boolLeading: true),
+      appBar: AppBarWidget(title: AppString.mdpeApp, boolLeading: true),
       body: SafeArea(
         child: BlocBuilder<ApprovalDetailsBloc, ApprovalDetailsState>(
           builder: (context, state) {
@@ -103,7 +103,7 @@ class _ApprovalDetailsViewState extends State<ApprovalDetailsView> {
     return Center(
       child: ImageWidget(
         star: AppString.star,
-        title: AppString.photo,
+        title: "Photo",
         imgFile: dataState.photo,
         onPressed: () {
           showModalBottomSheet(

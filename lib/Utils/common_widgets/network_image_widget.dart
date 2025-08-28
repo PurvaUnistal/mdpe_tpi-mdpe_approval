@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'enlarge_widge.dart';
 import 'res/app_color.dart';
-import 'res/app_string.dart';
 import 'res/app_styles.dart';
 
 class NetworkImageWidget extends StatelessWidget {
@@ -75,7 +74,7 @@ class NetworkImageWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.photo_camera_back_outlined, color: AppColor.primer,size: 18,),
-                    Text(AppString.photo,style: Styles.labels,),
+                    Text("Photo",style: Styles.labels,),
                   ],
                 ),
               ),

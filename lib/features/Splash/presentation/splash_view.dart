@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mdpe_approve_app/Utils/common_widgets/Routes/AppNavigator.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/res/AppNavigator.dart';
 import 'package:mdpe_approve_app/features/Login/presentation/login_view.dart';
 import 'package:mdpe_approve_app/features/UserApprovalList/presentation/user_approval_list_view.dart';
 import 'package:mdpe_approve_app/features/home/presentation/home_page.dart';
