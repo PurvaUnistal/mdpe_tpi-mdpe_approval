@@ -68,8 +68,8 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
 
   Widget _searchLindId({required UserApprovalListDataState dataState}) {
     return TextFieldWidget(
-      label: "Search lind Id...",
-      hintText: "Search lind Id...",
+      label: "Search Line ID...",
+      hintText: "Search Line ID...",
       controller: TextEditingController(),
     );
   }

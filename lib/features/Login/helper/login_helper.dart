@@ -11,18 +11,23 @@ import 'package:mdpe_approve_app/service/Apis.dart';
 import 'package:mdpe_approve_app/service/api_server_dio.dart';
 
 class LoginHelper {
-  static Future<dynamic> textFieldValidation(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
+  static Future<dynamic> textFieldValidation({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
     try {
       if (email.isEmpty) {
         UtilsToast.errorSnackBar(
-            msg: AppString.emailValidation, context: context);
+          msg: AppString.emailValidation,
+          context: context,
+        );
         return false;
       } else if (password.isEmpty) {
         UtilsToast.errorSnackBar(
-            msg: AppString.passwordValidation, context: context);
+          msg: AppString.passwordValidation,
+          context: context,
+        );
         return false;
       }
       return true;
@@ -45,10 +50,11 @@ class LoginHelper {
     return null;
   }
 
-  static Future<LoginModel?> loginData(
-      {required String emailId,
-      required String password,
-      required BuildContext context}) async {
+  static Future<LoginModel?> loginData({
+    required String emailId,
+    required String password,
+    required BuildContext context,
+  }) async {
     var deviceId = await getUniqueDeviceId();
     Map<String, String> para = {
       "email": emailId,
@@ -57,22 +63,31 @@ class LoginHelper {
     };
     try {
       var res = await ApiHelper.postData(
-          urlEndPoint: Apis.loginUrl, param: para, context: context);
+        urlEndPoint: Apis.loginUrl,
+        param: para,
+        context: context,
+      );
       if (res == null) return null;
       if (!res["error"]) {
         if (AppConfig.instanceInit()!.client == Client.purbaBharti &&
                 res["user"]["role"] == "mdpe pmc" ||
             res["user"]["role"] == "mdpe client" ||
-            AppConfig.instanceInit()!.client == Client.mahaNagar &&  res["user"]["role"] == "tpi") {
+            AppConfig.instanceInit()!.client == Client.mahaNagar &&
+                res["user"]["role"] == "tpi" ||
+            res["user"]["role"] == "client" ||
+            res["user"]["role"] == "mdpe client") {
           await UtilsToast.successSnackBar(
-              msg: res["messages"], context: context);
+            msg: res["messages"],
+            context: context,
+          );
           String baseUrl = Apis.loginUrl.replaceAll("api/auth", "");
 
           return LoginModel.fromJson(res);
         } else {
           UtilsToast.errorSnackBar(
-              msg: "Invalid role ID. Please check your credentials.",
-              context: context);
+            msg: "Invalid role ID. Please check your credentials.",
+            context: context,
+          );
           return null;
         }
       }
@@ -83,7 +98,9 @@ class LoginHelper {
     } catch (e) {
       log("catchLoginHelper --> ${e.toString()}");
       UtilsToast.errorSnackBar(
-          msg: "An error occurred: ${e.toString()}", context: context);
+        msg: "An error occurred: ${e.toString()}",
+        context: context,
+      );
       return null;
     }
   }
