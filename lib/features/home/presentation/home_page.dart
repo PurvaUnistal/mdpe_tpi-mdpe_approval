@@ -34,17 +34,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: "Home",
+      appBar: AppBarWidget(
+        title: "Home",
         actions: [
           IconButton(
-              onPressed: () => showModalBottomSheet(
-                  context: context, builder: (context) => const LogoutWidget()),
-              icon: Icon(
-                Icons.logout,
-                color: AppColor.white,
-              ))
-
-        ],),
+            onPressed:
+                () => showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const LogoutWidget(),
+                ),
+            icon: Icon(Icons.logout, color: AppColor.white),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
@@ -60,33 +62,57 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildLayout({required HomePageLoadedState dataState}) {
-    return ListView.builder(
-      itemCount: dataState.listOfAllocationData.length,
-      itemBuilder: (BuildContext context, int i) {
-        final data = dataState.listOfAllocationData[i];
-        return InkWell(
-          onTap: () async {
-          await  AppConfig.instanceInit()?.setAllocationData(allocationData: data);
-            AppNavigator.push(UserApprovalListView());
-          },
-          child: Card(
-            child: ListTile(
-              subtitle: Column(
-                children: [
-                  RowWidget(
-                    title: "AllocationNumber",
-                    subtitle: data.allocationNumber ?? "",
-                  ),
-                  RowWidget(
-                      title: "WBS No.",
-                      subtitle: data.wbsNo ?? "",
-                  ),
-                ],
-              ),
+    return dataState.listOfAllocationData.isEmpty
+        ? Expanded(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.search_off, size: 48, color: Colors.grey),
+                const SizedBox(height: 10),
+                const Text(
+                  "No Data Found",
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<HomeBloc>().add(
+                      HomePageLoadedEvent(context: context),
+                    );
+                  },
+                  child: const Text("Retry"),
+                ),
+              ],
             ),
           ),
+        )
+        : ListView.builder(
+          itemCount: dataState.listOfAllocationData.length,
+          itemBuilder: (BuildContext context, int i) {
+            final data = dataState.listOfAllocationData[i];
+            return InkWell(
+              onTap: () async {
+                await AppConfig.instanceInit()?.setAllocationData(
+                  allocationData: data,
+                );
+                AppNavigator.push(UserApprovalListView());
+              },
+              child: Card(
+                child: ListTile(
+                  subtitle: Column(
+                    children: [
+                      RowWidget(
+                        title: "AllocationNumber",
+                        subtitle: data.allocationNumber ?? "",
+                      ),
+                      RowWidget(title: "WBS No.", subtitle: data.wbsNo ?? ""),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         );
-      },
-    );
   }
 }

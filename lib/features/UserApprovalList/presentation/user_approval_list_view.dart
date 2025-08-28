@@ -23,8 +23,9 @@ class UserApprovalListView extends StatefulWidget {
 class _UserApprovalListViewState extends State<UserApprovalListView> {
   @override
   void initState() {
-    BlocProvider.of<UserApprovalListBloc>(context)
-        .add(UserApprovalListPageLoadEvent(context: context));
+    BlocProvider.of<UserApprovalListBloc>(
+      context,
+    ).add(UserApprovalListPageLoadEvent(context: context));
     super.initState();
   }
 
@@ -32,20 +33,14 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBarWidget(
-        title: AppString.mdpeApp,
-        boolLeading: true,
-
-      ),
+      appBar: AppBarWidget(title: AppString.mdpeApp, boolLeading: true),
       body: SafeArea(
         child: BlocBuilder<UserApprovalListBloc, UserApprovalListState>(
           builder: (context, state) {
             if (state is UserApprovalListDataState) {
               return BackgroundWidget(child: _buildLayout(dataState: state));
             } else {
-              return const Center(
-                child: SpinLoader(),
-              );
+              return const Center(child: SpinLoader());
             }
           },
         ),
@@ -60,7 +55,33 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
         children: [
           _searchLindId(dataState: dataState),
           _vertical(),
-          _listOfLineId(dataState: dataState),
+          dataState.listOfMdpePcmData.isEmpty
+              ? Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.search_off, size: 48, color: Colors.grey),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "No Data Found",
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                  const SizedBox(height: 12),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<UserApprovalListBloc>().add(
+                        UserApprovalListPageLoadEvent(
+                            context: context),
+                      );
+                    },
+                    child: const Text("Retry"),
+                  ),
+                ],
+              ),
+            ),
+          )
+              : _listOfLineId(dataState: dataState),
         ],
       ),
     );
@@ -79,72 +100,78 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
   Widget _listOfLineId({required UserApprovalListDataState dataState}) {
     return Flexible(
       child: ListView.builder(
-          itemCount: dataState.listOfMdpePcmData.length,
-          itemBuilder: (BuildContext context, int i) {
-            final data = dataState.listOfMdpePcmData[i];
-            return InkWell(
-              onTap: () async {
-                await AppConfig.instanceInit()?.setMdpePmcData(
-                    newMdpePmcData: dataState.listOfMdpePcmData[i]);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            ApprovalDetailsView()));
-              },
-              child: Card(
-                shadowColor: Colors.green,
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data.username ?? "",
-                                style: TextStyle(
-                                    fontSize: 16, color: AppColor.primer),
+        itemCount: dataState.listOfMdpePcmData.length,
+        itemBuilder: (BuildContext context, int i) {
+          final data = dataState.listOfMdpePcmData[i];
+          return InkWell(
+            onTap: () async {
+              await AppConfig.instanceInit()?.setMdpePmcData(
+                newMdpePmcData: dataState.listOfMdpePcmData[i],
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ApprovalDetailsView(),
+                ),
+              );
+            },
+            child: Card(
+              shadowColor: Colors.green,
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data.username ?? "",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.primer,
                               ),
-                            ],
-                          ),
-                          _row(
-                              title: "Status",
-                              fontSize: 16,
-                              color: statusColor[data.pmcApprovalSta],
-                              subtitle: statusMap[data.pmcApprovalSta] ?? ""),
-                        ],
-                      ),
-                      _row(title: "Line ID", subtitle: data.mdpeid ?? ""),
-                    ],
-                  ),
+                            ),
+                          ],
+                        ),
+                        _row(
+                          title: "Status",
+                          fontSize: 16,
+                          color: statusColor[data.pmcApprovalSta],
+                          subtitle: statusMap[data.pmcApprovalSta] ?? "",
+                        ),
+                      ],
+                    ),
+                    _row(title: "Line ID", subtitle: data.mdpeid ?? ""),
+                  ],
                 ),
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 
-  final statusMap = {
-    "2": "Reject",
-    "": "New",
-    "1": "Approval",
-  };
+  final statusMap = {"2": "Reject", "": "New", "1": "Approval"};
   final statusColor = {
     "2": Colors.red,
-    "": Colors.yellow.shade800
-    ,
+    "": Colors.yellow.shade800,
     "1": Colors.green,
   };
 
-  Widget _row({required String title, required String subtitle, Color? color,double? fontSize }) {
+  Widget _row({
+    required String title,
+    required String subtitle,
+    Color? color,
+    double? fontSize,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
@@ -156,7 +183,10 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
           Text(
             subtitle,
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: fontSize ?? 14, color: color),
+              fontWeight: FontWeight.bold,
+              fontSize: fontSize ?? 14,
+              color: color,
+            ),
           ),
         ],
       ),
@@ -164,8 +194,6 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
   }
 
   _vertical() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.009,
-    );
+    return SizedBox(height: MediaQuery.of(context).size.height * 0.009);
   }
 }
