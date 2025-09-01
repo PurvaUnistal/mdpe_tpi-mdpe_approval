@@ -11,8 +11,6 @@ import 'package:mdpe_approve_app/features/Login/domain/bloc/login_bloc.dart';
 import 'package:mdpe_approve_app/features/Login/presentation/login_view.dart';
 import 'package:mdpe_approve_app/features/UserApprovalList/domain/bloc/user_approval_list_bloc.dart';
 import 'package:mdpe_approve_app/features/home/presentation/home_page.dart';
-import 'Utils/common_widgets/Routes/routes.dart';
-import 'Utils/common_widgets/Routes/routes_name.dart';
 import 'features/Splash/presentation/splash_view.dart';
 import 'features/UserApprovalList/presentation/user_approval_list_view.dart';
 import 'features/home/domain/bloc/home_bloc.dart';

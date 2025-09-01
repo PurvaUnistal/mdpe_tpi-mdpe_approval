@@ -5,14 +5,13 @@ import 'package:mdpe_approve_app/Utils/common_widgets/res/AppNavigator.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_bar_widget.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_color.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_config.dart';
-import 'package:mdpe_approve_app/Utils/common_widgets/res/environment_config.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/res/app_string.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/row_widget.dart';
 import 'package:mdpe_approve_app/features/UserApprovalList/presentation/user_approval_list_view.dart';
 import 'package:mdpe_approve_app/features/UserApprovalList/presentation/widgets/logout_widget.dart';
 import 'package:mdpe_approve_app/features/home/domain/bloc/home_bloc.dart';
 import 'package:mdpe_approve_app/features/home/domain/bloc/home_event.dart';
 import 'package:mdpe_approve_app/features/home/domain/bloc/home_state.dart';
-
 import '../../../Utils/common_widgets/background_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        title: "Home",
+        title: AppString.mdpeApp,
         actions: [
           IconButton(
             onPressed:
