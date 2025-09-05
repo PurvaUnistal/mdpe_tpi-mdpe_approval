@@ -62,28 +62,26 @@ class _HomePageState extends State<HomePage> {
 
   _buildLayout({required HomePageLoadedState dataState}) {
     return dataState.listOfAllocationData.isEmpty
-        ? Expanded(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.search_off, size: 48, color: Colors.grey),
-                const SizedBox(height: 10),
-                const Text(
-                  "No Data Found",
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
-                ),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<HomeBloc>().add(
-                      HomePageLoadedEvent(context: context),
-                    );
-                  },
-                  child: const Text("Retry"),
-                ),
-              ],
-            ),
+        ? Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.search_off, size: 48, color: Colors.grey),
+              const SizedBox(height: 10),
+              const Text(
+                "No Data Found",
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<HomeBloc>().add(
+                    HomePageLoadedEvent(context: context),
+                  );
+                },
+                child: const Text("Retry"),
+              ),
+            ],
           ),
         )
         : ListView.builder(

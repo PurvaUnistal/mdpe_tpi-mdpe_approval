@@ -37,22 +37,22 @@ android {
         create("prodPBGPL") {
             dimension = "app"
             applicationIdSuffix = ".pbgmdpeapproval.app"
-            resValue("string", "app_name", "MDPE Approval")
+            resValue("string", "app_name", "MGL MDPE Approval")
             manifestPlaceholders.putAll(
                 mapOf(
-                    "appIcon" to "@mipmap/pbg_logo",
-                    "appIconRound" to "@mipmap/pbg_logo"
+                    "appIcon" to "@mipmap/unistal_logo",
+                    "appIconRound" to "@mipmap/unistal_logo"
                 )
             )
         }
         create("prodMGL") {
             dimension = "app"
             applicationIdSuffix = ".mglmdpeapproval.app"
-            resValue("string", "app_name", "MDPE Approval")
+            resValue("string", "app_name", "MGL MDPE Approval")
             manifestPlaceholders.putAll(
                 mapOf(
-                    "appIcon" to "@mipmap/pbg_logo",
-                    "appIconRound" to "@mipmap/pbg_logo"
+                    "appIcon" to "@mipmap/unistal_logo",
+                    "appIconRound" to "@mipmap/unistal_logo"
                 )
             )
 
