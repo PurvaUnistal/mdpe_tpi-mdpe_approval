@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mdpe_approve_app/Utils/common_widgets/AppUpdateMessage.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/Loader/SpinLoader.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/AppNavigator.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_bar_widget.dart';
@@ -12,6 +17,7 @@ import 'package:mdpe_approve_app/features/UserApprovalList/presentation/widgets/
 import 'package:mdpe_approve_app/features/home/domain/bloc/home_bloc.dart';
 import 'package:mdpe_approve_app/features/home/domain/bloc/home_event.dart';
 import 'package:mdpe_approve_app/features/home/domain/bloc/home_state.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../../Utils/common_widgets/background_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,14 +28,49 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  static const MethodChannel platform = MethodChannel('mgl/mglmdpeapproval');
+
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      callMethodeChannel();
+    });
     BlocProvider.of<HomeBloc>(
       context,
     ).add(HomePageLoadedEvent(context: context));
     super.initState();
   }
-
+  callMethodeChannel() async {
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String applicationId = packageInfo.packageName;
+      String androidPlayStoreUrl =
+          "https://play.google.com/store/apps/details?id=$applicationId&hl=en&gl=US";
+      final dynamic result = await platform.invokeMethod('getAppUpdate');
+      if (Platform.isAndroid) {
+        if (kDebugMode) {
+          print("Upgrade Message ============== $result");
+        }
+        if (result.toString() == "success") {
+          try {
+            AppUpdateMessage.showAlertDialog(
+              context: context,
+              url: androidPlayStoreUrl,
+              isLater: false,
+            );
+          } catch (e) {
+            AppUpdateMessage.showAlertDialog(
+              context: context,
+              url: androidPlayStoreUrl,
+            );
+          }
+        }
+      }
+    } on PlatformException catch (e) {
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
