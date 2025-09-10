@@ -19,7 +19,15 @@ class EnlargeWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(text, textAlign: TextAlign.center, style: Styles.labels,
+              Expanded(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16, // control size here
+                  ),
+                ),
               ),
               IconButton(
                 onPressed: () {

@@ -1,5 +1,7 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 import 'enlarge_widge.dart';
 import 'res/app_color.dart';
 import 'res/environment_config.dart';
@@ -10,69 +12,70 @@ class ImageWidget extends StatelessWidget {
   final String? star;
   final void Function() onPressed;
 
-  const ImageWidget(
-      {super.key,
-      required this.imgFile,
-      this.star,
-      required this.title,
-      required this.onPressed});
+  const ImageWidget({
+    super.key,
+    required this.imgFile,
+    this.star,
+    required this.title,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: onPressed,
-      child: imgFile.path.isNotEmpty
-          ? Card(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.23,
-                height: MediaQuery.of(context).size.height * 0.12,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: <Widget>[
-                    Image.file(
-                      imgFile,
-                      fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.width * 0.23,
-                      height: MediaQuery.of(context).size.height * 0.12,
-                    ),
-                    Positioned(
-                      child: Center(
-                          child: Icon(
-                        Icons.refresh,
-                        color: EnvironmentConfig.of(context)!.primaryTheme,
-                      )),
-                    ),
-                    Positioned(
-                      top: -15,
-                      right: -20,
-                      child: TextButton(
-                        child: Container(
-                            color: EnvironmentConfig.of(context)!.primaryTheme,
-                            child: Icon(
-                              Icons.zoom_out_map,
-                              color: AppColor.white,
-                            )),
-                        onPressed: () async {
-                          await showBottomSheet(
-                              context: context,
-                              builder: (_) => EnlargeWidget(
-                                    text: title,
-                                    photoPath: imgFile,
-                                  ));
-                        },
-                      ),
-                    ),
-                  ],
+      child: Card(
+        child: SizedBox(
+          width: size.width * 0.23,
+          height: size.height * 0.12,
+          child: imgFile.existsSync()
+              ? Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Image.file(
+                imgFile,
+                fit: BoxFit.fill,
+                width: size.width * 0.23,
+                height: size.height * 0.12,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.refresh,
+                  color: EnvironmentConfig.of(context)!.primaryTheme,
                 ),
               ),
-            )
-          : CircleAvatar(
-              backgroundColor: EnvironmentConfig.of(context)!.primaryTheme,
-              child: Icon(
-                Icons.photo_camera_back_outlined,
-                color: AppColor.white,
-                size: 18,
-              )),
+              Positioned(
+                top: -15,
+                right: -20,
+                child: IconButton(
+                  icon: Icon(Icons.zoom_out_map, color: EnvironmentConfig.of(context)!.primaryTheme,),
+                  onPressed: () async {
+                    await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.zero,
+                        ),
+                      ),
+                      builder: (_) => EnlargeWidget(
+                        text: title,
+                        photoPath: imgFile,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          )
+              : Icon(
+            Icons.photo_camera_back_outlined,
+            color:  EnvironmentConfig.of(context)!.primaryTheme,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -51,8 +51,8 @@ android {
             resValue("string", "app_name", "MGL MDPE Approval")
             manifestPlaceholders.putAll(
                 mapOf(
-                    "appIcon" to "@mipmap/unistal_logo",
-                    "appIconRound" to "@mipmap/unistal_logo"
+                    "appIcon" to "@mipmap/mgl_logo",
+                    "appIconRound" to "@mipmap/mgl_logo"
                 )
             )
 

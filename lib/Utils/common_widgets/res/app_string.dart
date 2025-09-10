@@ -3,7 +3,7 @@ import 'package:mdpe_approve_app/Utils/common_widgets/res/app_color.dart';
 import 'package:mdpe_approve_app/Utils/common_widgets/res/app_config.dart';
 
 class AppString {
-  static String version = "Version : ${AppConfig.instanceInit()?.appName} - ${AppConfig.instanceInit()?.appVersion}, 27-8-2025";
+  static String version = "Version : ${AppConfig.instanceInit()?.appName}-${AppConfig.instanceInit()?.appVersion},10-9-2025";
   static String companyName = "© Unistal Systems Pvt. Ltd.";
   static String emailLabel = "Enter User Email";
   static String passwordLabel = "Enter User Password";

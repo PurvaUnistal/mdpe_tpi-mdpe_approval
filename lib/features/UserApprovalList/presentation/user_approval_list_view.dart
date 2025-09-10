@@ -148,7 +148,7 @@ class _UserApprovalListViewState extends State<UserApprovalListView> {
                         ),
                       ],
                     ),
-                    _row(title: "Line ID", subtitle: data.mdpeid ?? ""),
+                    _row(title: "Line ID", subtitle: data.lineid ?? ""),
                   ],
                 ),
               ),
